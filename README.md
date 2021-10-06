@@ -21,7 +21,7 @@ $ php bin/console oro:platform:update --force
 ```
 ## RoadMap (ToDo)
 
-* [TODO.md](src/Summa/Bundle/BadgeBundle/TODO.md)
+* [TODO.md](TODO.md)
 
 [![Power by ](https://www.summasolutions.net/wp-content/uploads/2018/11/summa_color.png)](https://www.summasolutions.net)
 

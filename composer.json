@@ -11,7 +11,7 @@
     }
   ],
   "autoload": {
-    "psr-4": {"Summa\\Bundle\\BadgeBundle\\": "src/Summa/Bundle/BadgeBundle"},
+    "psr-4": {"Summa\\Bundle\\BadgeBundle\\": ""},
     "exclude-from-classmap": ["/Tests/"]
   },
   "require": {
