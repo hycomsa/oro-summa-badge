@@ -2,7 +2,7 @@ navigation:
     menu_config:
         items:
             badges:
-                label: summa.bundle.name
+                label: summa.badge.entity_plural_label
                 route: 'summa_badge_index'
                 acl_resource_id: summa_badge_view
         tree:

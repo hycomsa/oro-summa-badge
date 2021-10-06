@@ -64,7 +64,7 @@ class BadgeScheduleCommand extends Command implements CronCommandInterface
         $badgesToProcess = $this->registry
             ->getManagerForClass(Badge::class)
             ->getRepository(Badge::class)
-            ->getActiveBadgesWithDateCondition();
+            ->getActiveBadgesCroneable();
 
         foreach ($badgesToProcess as $badge){
             if ($this->builder->needRebuild($badge)){

@@ -2,7 +2,7 @@
 
 namespace Summa\Bundle\BadgeBundle\Entity\Repository;
 
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr;
@@ -112,13 +112,20 @@ class BadgeRepository extends EntityRepository
     }
 
     /**
-     * @return int|mixed|string
+     * Return Badges for process with cron
+     *
+     * @return ArrayCollection|Badge[]
      */
-    public function getActiveBadgesWithDateCondition()
+    public function getActiveBadgesCroneable()
     {
         $qb = $this->createQueryBuilder('badge');
         $qb->where('badge.active = :active')
-            ->andWhere('badge.applyForNDays is not null')
+            ->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->isNotNull('productAssignmentRule'),
+                    $qb->expr()->isNotNull('applyForNDays')
+                )
+            )
             ->setParameter('active', true);
 
         return $qb->getQuery()->execute();

@@ -125,7 +125,7 @@ class BadgeController extends AbstractController
                     'parameters' => []
                 ];
             },
-            $this->get(TranslatorInterface::class)->trans('summa.badge.controller.badge.saved.message')
+            $this->get(TranslatorInterface::class)->trans('summa.badge.controller.saved.message')
         );
     }
 

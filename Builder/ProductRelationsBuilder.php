@@ -4,6 +4,7 @@ namespace Summa\Bundle\BadgeBundle\Builder;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Types\Types;
+use Monolog\Logger;
 use Summa\Bundle\BadgeBundle\Compiler\DateConditionCompiler;
 use Summa\Bundle\BadgeBundle\Entity\Badge;
 use Summa\Bundle\BadgeBundle\Compiler\ProductAssignmentRuleCompiler;
@@ -14,9 +15,7 @@ use Summa\Bundle\BadgeBundle\Compiler\ProductAssignmentRuleCompiler;
  */
 class ProductRelationsBuilder
 {
-    /**
-     * @var ManagerRegistry
-     */
+    /** @var ManagerRegistry */
     protected $registry;
 
     /** @var ProductAssignmentRuleCompiler */
@@ -25,28 +24,35 @@ class ProductRelationsBuilder
     /** @var DateConditionCompiler */
     private $dateConditionCompiler;
 
+    /** @var Logger */
+    private $logger;
+
     /**
      * @param ManagerRegistry $registry
      * @param ProductAssignmentRuleCompiler $productAssignmentRuleCompiler
+     * @param DateConditionCompiler $dateConditionCompiler
+     * @param Logger $logger
      */
     public function __construct(
         ManagerRegistry $registry,
         ProductAssignmentRuleCompiler $productAssignmentRuleCompiler,
-        DateConditionCompiler $dateConditionCompiler
+        DateConditionCompiler $dateConditionCompiler,
+        Logger $logger
     ) {
         $this->registry = $registry;
         $this->productAssignmentRuleCompiler = $productAssignmentRuleCompiler;
         $this->dateConditionCompiler = $dateConditionCompiler;
+        $this->logger = $logger;
     }
 
     /**
      * @param Badge $badge
      * @throws \Exception
      */
-    public function builder(Badge $badge){
+    public function builder(Badge $badge)
+    {
         $this->clearProductRelated($badge);
         $this->addProductRelated($badge);
-
     }
 
     /**
@@ -64,7 +70,10 @@ class ProductRelationsBuilder
             $this->registry->getConnection()->fetchAll($sql, $params, $types);
             return;
         }catch (\Exception $e){
-            // Todo: log exception
+            $this->logger->error(
+                sprintf('Failed to remove badge relation. %s', $e->getMessage()),
+                ['exception' => $e]
+            );
         }
     }
 
@@ -74,7 +83,6 @@ class ProductRelationsBuilder
      */
     private function addProductRelated(Badge $badge)
     {
-        // TODO: solo insertar lo que sea necesario
         $productMatch = $this->getProductMatches($badge);
         if($productMatch){
             try{
@@ -89,7 +97,10 @@ class ProductRelationsBuilder
                 }
                 return;
             }catch (\Exception $e){
-                // Todo: log exception
+                $this->logger->error(
+                    sprintf('Failed related badge to product. %s', $e->getMessage()),
+                    ['exception' => $e]
+                );
             }
         }
     }

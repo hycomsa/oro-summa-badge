@@ -8,6 +8,7 @@
 * Remove Comments and Clean Code
 * Review Translates and Add ES
 * Test Needrebuild Methods
+* Review TODOS
 * Test
 
 ### Low priority list

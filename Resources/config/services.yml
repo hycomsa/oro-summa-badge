@@ -76,4 +76,5 @@ services:
       - '@doctrine'
       - '@summa_badge.compiler.product_assignment_rule_compiler'
       - '@summa_badge.compiler.date_condition_compiler'
+      - '@logger'
 
