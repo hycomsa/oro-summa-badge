@@ -1,0 +1,27 @@
+{
+  "name": "summa/oro-summa-badge",
+  "description": "Summa Product Badge",
+  "homepage": "https://summasolutions.net",
+  "license": "OSL-3.0",
+  "keywords": ["Oro", "Product", "Bagde"],
+  "authors": [
+    {
+      "name": "Summa solutions",
+      "homepage": "https://www.summasolutions.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"Summa\\Bundle\\BadgeBundle\\": "src/Summa/Bundle/BadgeBundle"},
+    "exclude-from-classmap": ["/Tests/"]
+  },
+  "require": {
+    "oro/commerce": "4.1.*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "4.1-dev"
+    }
+  }
+}

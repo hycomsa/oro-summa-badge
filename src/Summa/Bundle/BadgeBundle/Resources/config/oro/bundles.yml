@@ -1,0 +1,2 @@
+bundles:
+  - { name: 'Summa\Bundle\BadgeBundle\SummaBadgeBundle', priority: 320 }

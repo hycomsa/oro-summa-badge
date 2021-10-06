@@ -1,0 +1,45 @@
+summa_badge:
+  badges:
+    grid_title: 'Badges Grilla'
+    entity_label: 'Badge'
+    menu_config: 'CucaTab'
+    form.nombre.label: 'Nombre'
+
+oro:
+  product:
+    badges:
+      label: 'Badges'
+summa:
+  product:
+    badges:
+      label: 'Badges'
+  badges:
+    additional_notice:
+      label: 'Importación de badges'
+    datagrids:
+      field:
+        id: 'ID'
+        nombre: 'Nombre'
+        posicion: 'Posición'
+        imagen: 'Imagen'
+    menu_config:
+      item:
+        label: 'Badges'
+    form:
+      file_label: 'CSV Importación Badges'
+
+  badges_import:
+    menu_config:
+      item:
+        label: 'Importación Badges'
+  badge:
+    id:
+      label: 'ID'
+    nombre:
+      label: 'Nombre'
+    posicion:
+      label: 'Posición'
+    imagen:
+      label: 'Imagen'
+    entity_label: 'Badge'
+    entity_plural_label: 'Badges'

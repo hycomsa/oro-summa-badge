@@ -1,0 +1,90 @@
+{# extend the base template from the OroUIBundle #}
+{% extends 'OroUIBundle:actions:update.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{# reuse the form theme provided with OroPlatform #}
+{% form_theme form with 'OroFormBundle:Form:fields.html.twig' %}
+
+{# make the current entity accessible with the entity variable #}
+{% set entity = form.vars.value %}
+
+{# choose the appropriate action depending on whether is created or modified #}
+{# this variable needs to be named formAction as this is what the base template expects #}
+{% if entity.id %}
+    {% set formAction = path('summa_badge_update', { 'id': entity.id }) %}
+{% else %}
+    {% set formAction = path('summa_badge_create') %}
+{% endif %}
+
+{% block navButtons %}
+    {{ UI.cancelButton(path('summa_badge_index')) }}
+
+    {{ UI.dropdownSaveButton({
+        'html': UI.saveAndCloseButton() ~ UI.saveAndStayButton()
+    }) }}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% if entity.id %}
+    {% set breadcrumbs = {
+        'entity': entity,
+        'indexPath': path('summa_badge_index'),
+        'indexLabel': 'summa.badge.entity_plural_label'|trans,
+        'entityTitle': entity.name|default('N/A'|trans)
+    } %}
+    {{ parent() }}
+    {% else %}
+    {% set title = 'oro.ui.create_entity'|trans({ '%entityName%': 'summa.badge.entity_label'|trans }) %}
+    {{ include('OroUIBundle::page_title_block.html.twig', { title: title }) }}
+    {% endif %}
+    {% endblock pageHeader %}
+
+    {% block content_data %}
+    {% set id = 'summa_badge_type-edit' %}
+    {% set dataBlocks = [
+        {
+            'title': 'summa.badge.sections.general'|trans,
+            'class': 'active',
+            'subblocks': [{
+                'title': '',
+                'data': [
+                    form_row(form.name),
+                    form_row(form.active),
+                    form_row(form.position),
+                    form_row(form.style),
+                    form_row(form.image)
+                ]
+            }]
+        },
+        {
+            'title': 'summa.badge.sections.product_assignment_rule'|trans,
+            'subblocks': [{
+                'title': '',
+                'data': [
+                    form_row(form.productAssignmentRule),
+                    form_row(form.applyForNDays)
+                ]
+            }]
+        },
+        {
+            'title': 'summa.badge.sections.schedules'|trans,
+            'subblocks': [{
+                'title': '',
+                'data': [
+                    form_row(form.schedules)
+                    ]
+            }]
+        }
+    ]
+    %}
+
+    {# the data variable is a special variable that is used in the
+       parent content_data block to render the visual content "blocks"
+       of a page #}
+    {% set data = {
+        'formErrors': form_errors(form) ? form_errors(form) : null,
+        'dataBlocks': dataBlocks,
+    } %}
+
+    {{ parent() }}
+{% endblock content_data %}

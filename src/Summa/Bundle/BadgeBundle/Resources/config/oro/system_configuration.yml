@@ -1,0 +1,22 @@
+system_configuration:
+    fields:
+        summa_badge.disable_oro_default_badge:
+            ui_only: true
+            data_type: boolean
+            type: Oro\Bundle\ConfigBundle\Form\Type\ConfigCheckbox
+            priority: 100
+            options:
+                label: summa.productbadge.system_configuration.fields.summa_product_badge.disable_oro_default_badge.label
+                tooltip: summa.productbadge.system_configuration.fields.summa_product_badge.disable_oro_default_badge.tooltip
+
+    tree:
+        system_configuration:
+            commerce:
+                children:
+                    product:
+                        children:
+                            product_promotions:
+                                children:
+                                    new_product_icons:
+                                        children:
+                                            - summa_badge.disable_oro_default_badge

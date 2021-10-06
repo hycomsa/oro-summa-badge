@@ -1,0 +1,44 @@
+layout:
+    actions:
+        - '@remove':
+            id: product_sticker_new
+        - '@remove':
+            id: related_product_sticker_new
+        - '@remove':
+              id: upsell_product_sticker_new
+
+        - '@setOption':
+            id: upsell_products
+            optionName: items_data.badges
+            optionValue: '=data["summa_product_badges_provider"].getBadgesForProducts(data["oro_product_upsell_products"].getRelatedItems(data["product"]))'
+
+        - '@setOption':
+            id: related_products
+            optionName: items_data.badges
+            optionValue: '=data["summa_product_badges_provider"].getBadgesForProducts(data["oro_product_related_products"].getRelatedItems(data["product"]))'
+
+        - '@add':
+            id: summa_product_badges
+            blockType: summa_product_badge
+            parentId:  product_view_media_wrapper
+            prepend: true
+            options:
+                badges: '=data["summa_product_badges_provider"].getActiveBadges(data["product"])'
+
+        - '@add':
+            id: summa_product_badge_related_product
+            blockType: summa_product_badge
+            parentId: related_product_image_holder
+            siblingId: related_product_view_image
+            prepend: true
+            options:
+                badges: 'data["product"]'
+
+        - '@add':
+            id: summa_product_badge_upsell_product
+            blockType: summa_product_badge
+            parentId: upsell_product_image_holder
+            siblingId: upsell_product_view_image
+            prepend: true
+            options:
+                badges: 'data["product"]'

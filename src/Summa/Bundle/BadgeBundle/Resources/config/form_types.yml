@@ -1,0 +1,25 @@
+services:
+    summa_badge.form.type.badge:
+        public: true
+        class: Summa\Bundle\BadgeBundle\Form\Type\BadgeType
+        arguments:
+          - '@doctrine'
+        calls:
+          - [setDataClass, ['Summa\Bundle\BadgeBundle\Entity\Badge']]
+        tags:
+          - { name: form.type, alias: summa_badge_type }
+
+    summa_product_badge.form.options_configurator.badge_rule_editor_options_configurator:
+      class: Summa\Bundle\BadgeBundle\Form\OptionsConfigurator\BadgeRuleEditorOptionsConfigurator
+      public: false
+      arguments:
+        - '@oro_product.autocomplete_fields_provider'
+        - '@form.factory'
+        - '@twig'
+
+    summa_product_badge.form.type.price_rule_editor:
+      class: Summa\Bundle\BadgeBundle\Form\Type\BadgeRuleEditorType
+      arguments:
+        - '@summa_product_badge.form.options_configurator.badge_rule_editor_options_configurator'
+      tags:
+        - { name: form.type, alias: summa_badge_product_assignment_rule_editor }

@@ -1,0 +1,60 @@
+{% import 'OroUIBundle::macros.html.twig' as ui %}
+{% import 'OroCronBundle::macros.html.twig' as cronSchedulIntervals %}
+{% import 'OroProductBundle::image_macros.html.twig' as Image %}
+{% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
+
+<div class="widget-content">
+    <div class="row-fluid form-horizontal">
+        <div class="responsive-block">
+            {% if entity.id is defined %}
+                {{ ui.renderProperty('summa.badge.id.label'|trans, entity.id) }}
+            {% endif %}
+            {% if entity.name is defined %}
+                {{ ui.renderProperty('summa.badge.name.label'|trans, entity.name) }}
+            {% endif %}
+
+            {% set status = entity.active ? 'oro.pricing.pricelist.status.enabled'|trans : 'oro.pricing.pricelist.status.disabled'|trans %}
+            {{ ui.renderProperty('oro.pricing.pricelist.status.label'|trans, status) }}
+
+            {% if entity.isActive() and not entity.schedules.isEmpty() %}
+                {% set labels = {
+                    wasActivatedLabel: 'oro.pricing.pricelist_schedule.was_activated',
+                    activeNowLabel: 'oro.pricing.pricelist_schedule.active_now',
+                    notActiveNowLabel: 'oro.pricing.pricelist_schedule.not_active_now',
+                    willBeActivatedLabel: 'oro.pricing.pricelist_schedule.will_be_acitivated',
+                    wasDeactivatedLabel: 'oro.pricing.pricelist_schedule.was_deactivated',
+                    willBeDeactivatedLabel: 'oro.pricing.pricelist_schedule.will_be_deacitivated'
+                } %}
+                {{ ui.renderHtmlProperty('oro.pricing.pricelist.schedule.label'|trans, cronSchedulIntervals.scheduleIntervalsInfo(entity.schedules, labels)) }}
+            {% endif %}
+
+            {% if entity.position is defined %}
+                {{ ui.renderProperty('summa.badge.position.label'|trans, entity.position) }}
+            {% endif %}
+
+            {% if entity.productAssignmentRule is defined and entity.productAssignmentRule %}
+                {{ ui.renderProperty('summa.badge.product_assignment_rule.label'|trans, entity.productAssignmentRule ) }}
+            {% endif %}
+
+            {% if entity.applyForNDays is defined and entity.applyForNDays %}
+                {% set applyForNDays =  entity.applyForNDays ~ ' ' ~ ('summa.badge.apply_for_n_days.days')|trans  %}
+                {{ ui.renderProperty('summa.badge.apply_for_n_days.view_label'|trans, applyForNDays ) }}
+            {% endif %}
+
+            {% if entity.image is defined %}
+                <div class="attribute-item">
+                    <label class="attribute-item__term">{{ 'summa.badge.image.label'|trans }}</label>
+                    <div class="attribute-item__description">
+                        <img class="thumbnail"
+                             src="{{ Image.url(entity.image, 'product_small') }}"
+                             alt="{{ entity.name }}"
+                        >
+                    </div>
+                </div>
+            {% endif %}
+
+            {#  Todo: revisar esto  #}
+            {#  {{ entityConfig.renderDynamicFields(entity) }} #}
+        </div>
+    </div>
+</div>

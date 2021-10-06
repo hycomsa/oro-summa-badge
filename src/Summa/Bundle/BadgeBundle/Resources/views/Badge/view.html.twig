@@ -1,0 +1,64 @@
+{% extends 'OroUIBundle:actions:view.html.twig' %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{% oro_title_set({params : {"%title%": entity.name} }) %}
+{% set pageTitle = 'summa_badge.badges.grid_title'|trans %}
+
+{% block pageHeader %}
+    {% set breadcrumbs = {
+        'entity': entity,
+        'indexPath': path('summa_badge_index'),
+        'indexLabel': 'summa.badge.entity_plural_label'|trans,
+        'entityTitle': entity.name
+    } %}
+    {{ parent() }}
+{% endblock pageHeader %}
+
+{% block navButtons %}
+    {{ UI.editButton({'label':'Editar',
+        'path': path('summa_badge_update', {'id': entity.id}),
+        'entity_label': 'summa.badge.entity_plural_label'|trans,
+    }) }}
+{% endblock navButtons %}
+
+{% block content_data %}
+    {% import 'OroUIBundle::macros.html.twig' as UI %}
+
+    {% set badgeInfo %}
+        {{ oro_widget_render({
+            'widgetType': 'block',
+            'url': path('summa_badge_info', {id: entity.id}),
+            'alias': 'summa-badge-widget'
+        }) }}
+    {% endset %}
+
+    {% set dataBlocks = [
+        {
+            'title': 'summa.badge.sections.general'|trans,
+            'class': 'active',
+            'subblocks': [{'data' : [badgeInfo]}]
+        }
+    ] %}
+
+    {% if is_granted('summa_badge_view') %}
+        {% set dataBlocks = dataBlocks|merge([
+            {
+                'title' : 'summa.badge.sections.products'|trans,
+                'subblocks': [
+                {
+                    'title' : '',
+                    'useSpan': false,
+                    'data' : [dataGrid.renderGrid('summa-product-badge-grid', {badge_id: entity.id}, { cssClass: 'inner-grid' })]
+                }
+            ]
+            }
+        ]) %}
+    {% endif %}
+
+    {% set id = 'badges-view' %}
+    {% set data = {'dataBlocks': dataBlocks} %}
+
+    {{ parent() }}
+{% endblock content_data %}
+

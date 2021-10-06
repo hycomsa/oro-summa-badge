@@ -1,0 +1,17 @@
+acls:
+  summa_badge_create:
+    type: entity
+    class: SummaBadgeBundle:Badge
+    permission: CREATE
+  summa_badge_view:
+    type: entity
+    class: SummaBadgeBundle:Badge
+    permission: VIEW
+  summa_badge_edit:
+    type: entity
+    class: SummaBadgeBundle:Badge
+    permission: EDIT
+  summa_badge_delete:
+    type: entity
+    class: SummaBadgeBundle:Badge
+    permission: DELETE

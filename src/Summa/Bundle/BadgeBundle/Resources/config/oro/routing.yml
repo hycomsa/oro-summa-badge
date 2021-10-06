@@ -1,0 +1,11 @@
+summa_product_badge_front:
+  resource: "@SummaBadgeBundle/Controller/Frontend/ProductBadgeFrontendController.php"
+  type:     annotation
+  prefix:   /badge
+  options:
+    frontend: true
+
+summa_badge:
+  resource: "@SummaBadgeBundle/Controller/BadgeController.php"
+  type:     annotation
+  prefix:   /badges

@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        public: false
+
+    Summa\Bundle\BadgeBundle\Command\BadgeScheduleCommand:
+        arguments:
+            - '@doctrine'
+            - '@summa_badge.builder.product_relations_builder'
+        tags:
+            - { name: console.command }

@@ -1,0 +1,12 @@
+{% block _product_datagrid_row_product_badge_widget %}
+    {% if
+        product is defined and
+        product.badges is defined and
+        product.badges|length
+    %}
+        {{ dump(block) }}
+        {% set badges = product.badges %}
+    {% endif %}
+
+    {{ block('summa_product_badge', {'badges' : badges|default({})}) }}
+{% endblock %}

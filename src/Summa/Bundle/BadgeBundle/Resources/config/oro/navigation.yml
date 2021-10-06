@@ -1,0 +1,16 @@
+navigation:
+    menu_config:
+        items:
+            badges:
+                label: summa.bundle.name
+                route: 'summa_badge_index'
+                acl_resource_id: summa_badge_view
+        tree:
+            application_menu:
+                children:
+                    products_tab:
+                        children:
+                            badges: ~
+
+    titles:
+        badges: summa.badge.entity_label

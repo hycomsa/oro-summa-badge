@@ -1,0 +1,132 @@
+datagrids:
+    summa-badge-grid:
+        extended_entity_name: 'Summa\Bundle\BadgeBundle\Entity\Badge'
+        acl_resource: summa_badge_view
+        source:
+            type: orm
+            query:
+                select:
+                    - badge.id
+                    - badge.name
+                    - IDENTITY(badge.position) as badgePositionId
+                    - badge.createdAt
+                    - badge.updatedAt
+                    - CASE WHEN badge.active <> true THEN 'disabled' ELSE CASE WHEN badge.containSchedule = true THEN CASE WHEN schedule.id IS NOT NULL THEN 'active' ELSE 'inactive' END ELSE 'active' END END as activity
+                from:
+                    - { table: Summa\Bundle\BadgeBundle\Entity\Badge, alias: badge }
+                join:
+                    left:
+                        - { join: 'Summa\Bundle\BadgeBundle\Entity\BadgeSchedule', alias: schedule, conditionType: 'WITH', condition: '(schedule.badge = badge) AND ((schedule.activeAt IS NOT NULL AND schedule.deactivateAt IS NOT NULL AND :now BETWEEN schedule.activeAt AND schedule.deactivateAt) OR (schedule.activeAt IS NULL AND :now < schedule.deactivateAt) OR (schedule.deactivateAt IS NULL AND :now > schedule.activeAt))' }
+            bind_parameters:
+                - now
+        columns:
+            id:
+                label: 'summa.badge.id.label'
+                order: 10
+            image:
+                label: 'summa.badge.image.label'
+                type: twig
+                frontend_type: html
+                template: SummaBadgeBundle:Badge/Datagrid:image.html.twig
+                order: 20
+            name:
+                label: 'summa.badge.name.label'
+                order: 30
+            activity:
+                label: 'summa.badge_schedule.activity.label'
+                type: twig
+                frontend_type: html
+                template: SummaBadgeBundle:Badge/Datagrid:schedule.html.twig
+                order: 40
+            badgePositionId:
+                label: 'summa.badge.position.label'
+                choices: "@oro_entity_extend.enum_value_provider->getEnumChoicesByCode('summa_badge_position')"
+                frontend_type: select
+                order: 50
+            createdAt:
+                label:         oro.ui.created_at
+                frontend_type: datetime
+                order: 60
+            updatedAt:
+                label:         oro.ui.updated_at
+                frontend_type: datetime
+                order: 70
+        filters:
+            columns:
+                name:
+                    type: string
+                    data_name: badge.name
+                createdAt:
+                    type: datetime
+                    data_name: badge.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: badge.updatedAt
+                badgePositionId:
+                    type: enum
+                    data_name: badgePositionId
+                    enum_code: summa_badge_position
+                activity:
+                    type: single_choice
+                    data_name: activity
+                    options:
+                        field_options:
+                            choices:
+                                summa.badge_schedule.disabled: disabled
+                                summa.badge_schedule.inactive: inactive
+                                summa.badge_schedule.active: active
+                    label: summa.badge_schedule.activity.label
+        sorters:
+            columns:
+                id:
+                    type: string
+                    data_name: badge.id
+                name:
+                    type: string
+                    data_name: badge.name
+                createdAt:
+                    data_name: badge.createdAt
+                updatedAt:
+                    data_name: badge.updatedAt
+                activity:
+                    data_name: activity
+        properties:
+            id: ~
+            view_link:
+                type: url
+                route: summa_badge_view
+                params:     [ id ]
+            edit_link:
+                type: url
+                route: summa_badge_update
+                params:     [ id ]
+        actions:
+            view:
+                type:         navigate
+                label:        oro.grid.action.view
+                link:         view_link
+                icon:         eye
+                rowAction:    true
+                acl_resource: summa_badge_view
+            edit:
+                type:         navigate
+                label:        oro.grid.action.update
+                icon:         pencil-square-o
+                link:         edit_link
+                rowAction:    true
+                acl_resource: summa_badge_edit
+
+    summa-product-badge-grid:
+        extends: all-products-select-grid
+        acl_resource: summa_badge_view
+        source:
+            query:
+                join:
+                    left:
+                        -   join: product.badges
+                            alias: badges
+                where:
+                    and:
+                        - badges.id = :badge_id
+            bind_parameters:
+                - badge_id

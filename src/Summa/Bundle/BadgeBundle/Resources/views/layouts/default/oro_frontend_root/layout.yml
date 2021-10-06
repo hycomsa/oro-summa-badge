@@ -1,0 +1,71 @@
+layout:
+  actions:
+#    - '@setBlockTheme':
+#        themes: 'product_row.html.twig'
+
+    # Remove OOB Badges
+    - '@remove':
+        id: new_arrival_product_sticker_new
+    - '@remove':
+        id: top_selling_product_sticker_new
+    - '@remove':
+        id: featured_product_sticker_new
+
+      # New Arrival
+    - '@setOption':
+        id: new_arrival_products
+        optionName: items_data.badges
+        optionValue: '=data["summa_product_badges_provider"].getBadgesForProducts(data["new_arrivals"].getProducts())'
+
+    # Fetuared Products
+    - '@setOption':
+        id: featured_products
+        optionName: items_data.badges
+        optionValue: '=data["summa_product_badges_provider"].getBadgesForProducts(data["featured_products"].getProducts())'
+
+    # Top Sellings
+    - '@setOption':
+        id: top_selling_products
+        optionName: items_data.badges
+        optionValue: '=data["summa_product_badges_provider"].getBadgesForProducts(data["featured_products"].getProducts())'
+
+    # Remove and Add Blocks
+    - '@add':
+        id: summa_product_badge_new_arrival
+        blockType: summa_product_badge
+        parentId: new_arrival_product_image_holder
+        siblingId: new_arrival_product_view_image
+        prepend: true
+        options:
+            badges: 'data["product"]'
+
+    - '@add':
+        id: summa_product_badge_top_selling
+        blockType: summa_product_badge
+        parentId: top_selling_product_image_holder
+        siblingId: top_selling_product_view_image
+        prepend: true
+        options:
+            badges: 'data["product"]'
+
+    - '@add':
+        id: summa_product_badge_featured_products
+        blockType: summa_product_badge
+        parentId: featured_product_image_holder
+        siblingId: featured_products_product_view_image
+        prepend: true
+        options:
+            badges: 'data["product"]'
+
+#    - '@add':
+#        id: summa_product_badge_top_selling
+#        blockType: summa_product_badge
+#        parentId: top_selling_product_view_image
+#        prepend: true
+#        options:
+#            badges: 'data["product"]'
+
+#
+#                __product_view:
+#                    __product_view_image: ~
+#  conditions: 'context["disableOroDefaultBadge"] == true'

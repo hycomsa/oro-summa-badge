@@ -1,0 +1,52 @@
+//HomePage
+.summa-product-badge-container {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    width: 310px;
+    height: 310px; // Todo: ver var size image
+    img.summa-badge{
+        max-width: 155px;
+        max-height: 103px;
+        position: absolute;
+        &.top-left{
+            top:0;
+            left:0;
+        }
+        &.top-right{
+            top:0;
+            right:0;
+        }
+        &.midle-left{
+            top:103px;
+            left:0;
+        }
+        &.midle-right{
+            top:103px;
+            right:0;
+        }
+        &.bottom-left{
+            bottom:0;
+            left:0;
+        }
+        &.bottom-right{
+            bottom:0;
+            right:0;
+        }
+    }
+}
+
+//plp
+.product-item__image-holder--gallery-view {
+    position: relative;
+    .badges-container {
+        z-index: 5;
+    }
+}
+
+//pdp
+.product-view__images {
+    .badges-container {
+        z-index: 5555;
+    }
+}

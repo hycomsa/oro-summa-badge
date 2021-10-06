@@ -1,0 +1,7 @@
+{% set stringLength = record.getValue('short_txt') %}
+
+<span title="{{ record.getValue('short_txt') }}">{{ record.getValue('short_txt')|slice(0,50) }}</span>
+
+{% if stringLength|length > 50 %}
+ ...
+{% endif %}

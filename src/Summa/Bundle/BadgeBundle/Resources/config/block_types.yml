@@ -1,0 +1,13 @@
+services:
+    summa_badge.block_type.product_badges:
+        parent: oro_layout.block_type.abstract_configurable
+        calls:
+            -
+                - setOptionsConfig
+                -
+                    -
+                        position: {default: 'top-right'}
+                        badges:   {default: []}
+            - [setName, ['summa_product_badge']]
+        tags:
+            - { name: layout.block_type, alias: summa_product_badge }

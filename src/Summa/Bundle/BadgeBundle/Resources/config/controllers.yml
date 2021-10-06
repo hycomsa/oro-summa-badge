@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        public: true
+
+    Summa\Bundle\BadgeBundle\Controller\BadgeController:
+        calls:
+            - [setContainer, ['@Psr\Container\ContainerInterface']]
+        tags:
+            - { name: container.service_subscriber }

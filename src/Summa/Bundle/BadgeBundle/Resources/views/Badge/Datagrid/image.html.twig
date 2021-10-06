@@ -1,0 +1,13 @@
+{% import 'OroProductBundle::image_macros.html.twig' as Image %}
+{% set badgeImage = record.getValue('badgeImage') %}
+
+<a class="view-image no-hash"
+   tabindex="-1"
+   data-gallery="badge-image{{ record.getValue('id') }}"
+   href="{{ Image.url(badgeImage, 'product_original') }}"
+>
+    <img class="thumbnail"
+         src="{{ Image.url(badgeImage, 'product_small') }}"
+         alt="{{ record.getValue('name') }}"
+    >
+</a>

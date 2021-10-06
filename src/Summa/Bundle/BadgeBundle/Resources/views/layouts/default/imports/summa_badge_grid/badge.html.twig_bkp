@@ -1,0 +1,43 @@
+{% block _summa_badge_widget %}
+    {% import 'OroProductBundle::image_macros.html.twig' as Image %}
+
+        {% set badges = {} %}
+
+        {% for badge in product.badges %}
+
+            {% set badgeImageUrl = (cdn_url is defined) ? cdn_url : '' ~ Image.url(badge.image, 'product_original') %}
+            {% set badgePosition = badge.position.id %}
+
+            {% if(badgePosition == 'top-left') %}
+                {% set badges = badges | merge({'top-left': badgeImageUrl}) %}
+            {% elseif(badgePosition == 'top-right') %}
+                {% set badges = badges | merge({'top-right': badgeImageUrl}) %}
+            {% elseif(badgePosition == 'middle-left') %}
+                {% set badges = badges | merge({'middle-left': badgeImageUrl}) %}
+            {% elseif(badgePosition == 'middle-right') %}
+                {% set badges = badges | merge({'middle-right': badgeImageUrl}) %}
+            {% elseif(badgePosition == 'bottom-left') %}
+                {% set badges = badges | merge({'bottom-left': badgeImageUrl}) %}
+            {% elseif(badgePosition == 'bottom-right') %}
+                {% set badges = badges | merge({'bottom-right': badgeImageUrl}) %}
+            {% endif %}
+        {% endfor %}
+
+        <div class="badges-container">
+            <table width="100%" height="100%" border="0">
+                <tr class="top" height="30%"> {# style="height: 82px; width: 82px" #}
+                    <td width="50%" height="50%" class="left" align="left">{% if badges["top-left"] is defined %} <img class="summa-badge" src="{{ badges["top-left"] }}"> {% else %}&nbsp;{% endif %}</td>
+                    <td width="50%" height="50%" class="right" align="right">{% if badges["top-right"] is defined %} <img class="summa-badge" src="{{ badges["top-right"] }}"> {% else %}&nbsp;{% endif %}</td>
+                </tr>
+                <tr class="middle" height="30%">
+                    <td width="50%" height="50%" class="left" align="left">{% if badges["middle-left"] is defined %} <img class="summa-badge" src="{{ badges["middle-left"] }}"> {% else %}&nbsp;{% endif %}</td>
+                    <td width="50%" height="50%" class="right" align="right">{% if badges["middle-right"] is defined %} <img class="summa-badge" src="{{ badges["middle-right"] }}"> {% else %}&nbsp;{% endif %}</td>
+                </tr>
+                <tr class="bottom" height="30%">
+                    <td width="50%" height="50%" class="left" align="left">{% if badges["bottom-left"] is defined %} <img class="summa-badge" src="{{ badges["bottom-left"] }}"> {% else %}&nbsp;{% endif %}</td>
+                    <td width="50%" height="50%" class="right" align="right">{% if badges["bottom-right"] is defined %} <img class="summa-badge" src="{{ badges["bottom-right"] }}"> {% else %}&nbsp;{% endif %}</td>
+                </tr>
+            </table>
+        </div>
+
+{% endblock %}

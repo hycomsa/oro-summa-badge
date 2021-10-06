@@ -1,0 +1,7 @@
+layout:
+  actions:
+    - '@remove':
+        id: featured_product_sticker_new
+    - '@remove':
+        id: product_datagrid_row_product_sticker_new
+  conditions: 'context["disableOroDefaultBadge"] == true'

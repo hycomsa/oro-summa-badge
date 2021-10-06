@@ -1,0 +1,25 @@
+{% block summa_product_badge_widget %}
+    {% import 'OroProductBundle::image_macros.html.twig' as Image %}
+    {% if
+        badges is defined and
+        badges|length
+    %}
+        <div class="summa-product-badge-container">
+            {% set def_attr = attr %}
+
+            {% for badge in badges %}
+                {% set attr = def_attr %}
+
+                {% set attr = layout_attr_defaults(attr, {
+                    '~class': 'summa-badge ' ~ badge.position.id,
+                    '~style': badge.style,
+                }) %}
+
+                <img {{ block('block_attributes') }}
+                     src="{{ Image.url(badge.image, 'product_original') }}"
+                     alt="{{ badge.name }}"
+                     loading="lazy" />
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

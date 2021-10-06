@@ -1,0 +1,45 @@
+{% extends '@OroProduct/layouts/blank/imports/oro_product_list_item/oro_product_list_item.html.twig' %}
+
+{% block __oro_product_list_item__product_image_holder_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' product-item__image-holder product-item__image-holder--{{ class_prefix }}'
+    }) %}
+    <div {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}
+
+{% block __oro_product_list_item__product_view_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' product-item__preview',
+        'href': path('oro_product_frontend_product_view', {id: product.id}),
+        'aria-label': 'oro.product.frontend.index.view_details_prefix'|trans ~ ' ' ~ product.names|localized_value
+    }) %}
+
+    {% if popup_gallery and product.imagesByType('listing')|length > 0 %}
+        {% set options = {
+            view: 'orofrontend/js/app/components/popup-gallery-widget',
+            ajaxMode: true,
+            ajaxRoute: 'oro_product_frontend_ajax_images_by_id',
+            id: product.id,
+            galleryFilter: 'product_gallery_popup',
+            alt: product.names|localized_value,
+            uniqueTriggerToOpenGallery: '[data-role="data-trigger-gallery-open-' ~ __productUniqId ~ '"]'
+        } %}
+
+        {% set attr = layout_attr_defaults(attr, {
+            'data-page-component-view': options|json_encode
+        }) %}
+
+        {% if isTargetBlank is defined and isTargetBlank %}
+            {% set attr = attr|merge({'target': '_blank'}) %}
+        {% endif %}
+    {% endif %}
+
+    {{ block('_summa_badge_widget') }}
+
+    <a {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </a>
+{% endblock %}
+

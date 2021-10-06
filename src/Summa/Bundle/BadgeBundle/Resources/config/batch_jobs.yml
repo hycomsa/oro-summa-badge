@@ -1,0 +1,42 @@
+connector:
+    name: oro_importexport
+    jobs:
+        summa_product_badge_import_validation_from_csv:
+            title: "Badge import validation from CSV"
+            type: import_validation
+            steps:
+                import_validation:
+                    title:     import
+                    class:     Oro\Bundle\BatchBundle\Step\ItemStep
+                    services:
+                        reader: oro_importexport.reader.csv
+                        processor: oro_importexport.processor.import_validation_delegate
+                        writer: oro_importexport.writer.doctrine_clear
+                    parameters: ~
+
+        summa_product_badge_entity_import_from_csv:
+            title: "Badge import from CSV"
+            type: import
+            steps:
+                import:
+                    title:     import
+                    class:     Oro\Bundle\BatchBundle\Step\ItemStep
+                    services:
+                        reader:     oro_importexport.reader.csv
+                        processor:  oro_importexport.processor.import_delegate
+                        writer:     oro_importexport.writer.entity
+                    parameters:
+                        batch_size: 100
+
+#        badge_product_import_from_csv:
+#            title: "Importar Badges de productos from CSV"
+#            type: import
+#            steps:
+#                import:
+#                    title:     importirrrrrasadasda
+#                    class:     Oro\Bundle\BatchBundle\Step\ItemStep
+#                    services:
+#                        reader:    oro_importexport.reader.csv
+#                        processor: oro_importexport.processor.import_delegate
+#                        writer:    summa_badge.importexport.writer.badge_product.entity
+#                    parameters: ~

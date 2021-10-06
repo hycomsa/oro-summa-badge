@@ -1,0 +1,21 @@
+{% extends 'OroUIBundle:actions:index.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{% block navButtons %}
+    {% if is_granted('summa_badge_create') %}
+        <div class="btn-group">
+            {{ UI.addButton({
+                'path': path('summa_badge_create'),
+                'entity_label': 'summa.badge.entity_label'|trans
+            }) }}
+        </div>
+		 {% include 'OroImportExportBundle:ImportExport:buttons_from_configuration.html.twig' with
+             {
+                'alias': 'summa_badge_entity_import_from_csv'
+             }
+         %}
+    {% endif %}
+{% endblock %}
+
+{% set gridName = 'summa-badge-grid' %}
+{% set pageTitle = 'summa.badge.entity_plural_label'|trans %}

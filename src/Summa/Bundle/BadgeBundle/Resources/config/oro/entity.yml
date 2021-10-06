@@ -1,0 +1,11 @@
+#oro_entity:
+#  virtual_relations:
+#    Oro\Bundle\ProductBundle\Entity\Product:
+#      badge:
+#        relation_type: manyToOne
+#        related_entity_name: Summa\Bundle\BadgeBundle\Entity\Badge
+#        label: oro.catalog.category.entity_label
+#        query:
+#          join:
+#            left:
+#              - { join: entity.badge, alias: badge }
