@@ -5,6 +5,6 @@ services:
     Summa\Bundle\BadgeBundle\Command\BadgeScheduleCommand:
         arguments:
             - '@doctrine'
-            - '@summa_badge.builder.product_relations_builder'
+            - '@oro_message_queue.client.message_producer'
         tags:
             - { name: console.command }

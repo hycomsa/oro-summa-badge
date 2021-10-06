@@ -9,22 +9,33 @@ use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Transport\MessageInterface;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
 use Oro\Component\MessageQueue\Util\JSON;
+use Summa\Bundle\BadgeBundle\Builder\ProductRelationsBuilder;
 
 class BadgeProductAssigmentProcessor implements MessageProcessorInterface, TopicSubscriberInterface
 {
-    /**
-     * @var ManagerRegistry
-     */
+    /** @var ManagerRegistry */
     private $registry;
+
+    /** @var ProductRelationsBuilder */
+    private $builder;
+
+    /** @var Logger */
+    private $logger;
 
     /**
      * @param ManagerRegistry $registry
+     * @param ProductRelationsBuilder $builder
+     * @param Logger $logger
      */
     public function __construct(
-        ManagerRegistry $registry
+        ManagerRegistry $registry,
+        ProductRelationsBuilder $builder,
+        Logger $logger
     )
     {
         $this->registry = $registry;
+        $this->builder  = $builder;
+        $this->logger   = $logger;
     }
 
     /**
@@ -41,18 +52,19 @@ class BadgeProductAssigmentProcessor implements MessageProcessorInterface, Topic
         }
 
         try {
-
             $badge = $this->registry
                 ->getRepository('SummaBadgeBundle:Badge')
                 ->findOneBy(['id' => $body['badge_id']]);
 
-            // Remove invalid Assigment
-
-            // Add new Assigment
-
+            if ($this->builder->needRebuild($badge)){
+                $this->builder->builder($badge);
+            }
             return self::ACK;
-
-        }catch (\Exception $e){
+        }catch (\Exception $exception){
+            $this->logger->error(
+                sprintf('Cannot process related Product-Badge for Badge ("%s")', $body['badge_id']),
+                ['exception' => $exception]
+            );
             return self::REQUEUE;
         }
     }

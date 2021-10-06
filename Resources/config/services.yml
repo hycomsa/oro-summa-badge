@@ -41,6 +41,8 @@ services:
     class: Summa\Bundle\BadgeBundle\Async\BadgeProductAssigmentProcessor
     arguments:
       - '@doctrine'
+      - '@summa_badge.builder.product_relations_builder'
+      - '@logger'
     tags:
       - { name: oro_message_queue.client.message_processor }
 

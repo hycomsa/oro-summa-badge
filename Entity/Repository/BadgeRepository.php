@@ -122,8 +122,8 @@ class BadgeRepository extends EntityRepository
         $qb->where('badge.active = :active')
             ->andWhere(
                 $qb->expr()->orX(
-                    $qb->expr()->isNotNull('productAssignmentRule'),
-                    $qb->expr()->isNotNull('applyForNDays')
+                    $qb->expr()->isNotNull('badge.productAssignmentRule'),
+                    $qb->expr()->isNotNull('badge.applyForNDays')
                 )
             )
             ->setParameter('active', true);
