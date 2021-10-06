@@ -33,14 +33,9 @@ services:
     class: Summa\Bundle\BadgeBundle\Entity\EntityListener\BadgeEntityListener
     public: true
     arguments:
-      - '@session.flash_bag'
-      - '@translator'
-      - '@oro_message_queue.client.message_producer'
-      - '@summa_badge.compiler.product_assignment_rule_compiler'
-      - '@doctrine'
       - '@summa_badge.builder.product_relations_builder'
     tags:
-      - { name: doctrine.event_listener, event: onFlush}
+      - { name: doctrine.event_listener, event: postFlush}
 
   summa_badge.badge.assigment_product.processor:
     class: Summa\Bundle\BadgeBundle\Async\BadgeProductAssigmentProcessor

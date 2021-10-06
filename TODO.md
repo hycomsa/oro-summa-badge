@@ -2,7 +2,6 @@
 
 ### High priority list
 * PLP view 
-* Trigger event new badge auto assign Products
 * Zoom PDP issue
 * Fix Import/Export (Incompatibility whit auto assign rules)
 * Remove Comments and Clean Code

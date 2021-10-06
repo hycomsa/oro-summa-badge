@@ -37,11 +37,9 @@ class BadgeBundleInstaller implements Installation, ExtendExtensionAwareInterfac
         /** Tables generation **/
         $this->createBadgeTable($schema);
         $this->createBadgeScheduleTable($schema);
-        //$this->createSummaBadgeToProductTable($schema);
 
         /** Foreign keys generation **/
         $this->addBadgeScheduleForeignKeys($schema);
-        //$this->addSummaBadgeToProductForeignKeys($schema);
 
         /** Foreign Relations **/
         $this->addBadgePositionEnumField($schema);
