@@ -78,8 +78,8 @@ summa:
           label: 'Disable default New badge'
           tooltip: 'Use this option for disable/enable default new badge.'
 
-importexport:
-  import:
-    summa_product_badge:
-      add_or_replace: Add or Replace
-      reset: Reset
+  importexport:
+    import:
+      summa_product_badge:
+        add_or_replace: Add or Replace
+        reset: Reset

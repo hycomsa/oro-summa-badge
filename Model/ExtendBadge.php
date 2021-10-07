@@ -5,11 +5,6 @@ namespace Summa\Bundle\BadgeBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Oro\Bundle\ProductBundle\Entity\Product;
 
-/**
- * @method removeProduct(Product $value)
- * @method ArrayCollection|Product[] getProducts()
- * @method addProduct(Product $value)
- */
 class ExtendBadge
 {
     /**

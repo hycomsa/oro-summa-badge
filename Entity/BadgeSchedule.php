@@ -2,16 +2,9 @@
 
 namespace Summa\Bundle\BadgeBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\CronBundle\Entity\ScheduleIntervalInterface;
 use Oro\Bundle\CronBundle\Entity\ScheduleIntervalTrait;
-use Oro\Bundle\ProductBundle\Entity\Product;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
-use Oro\Bundle\AttachmentBundle\Entity\File;
-use Summa\Bundle\BadgeBundle\Model\ExtendBadge;
 
 /**
  * @ORM\Table(name="summa_badge_schedule")
@@ -95,28 +88,4 @@ class BadgeSchedule implements ScheduleIntervalInterface
 
         return $this;
     }
-
-    //Todo: ver esto
-//    /**
-//     * @param PriceListSchedule $compared
-//     * @return bool
-//     */
-//    public function equals(PriceListSchedule $compared)
-//    {
-//        return $compared->getPriceList() === $this->getPriceList()
-//            && $compared->getActiveAt() == $this->getActiveAt()
-//            && $compared->getDeactivateAt() == $this->getDeactivateAt();
-//    }
-//
-//    /**
-//     * @return string
-//     */
-//    public function getHash()
-//    {
-//        return md5(json_encode([
-//            'priceList' => $this->priceList ? spl_object_hash($this->priceList) : null,
-//            'activeAt' => $this->activeAt,
-//            'deactivateAt' => $this->deactivateAt
-//        ]));
-//    }
 }

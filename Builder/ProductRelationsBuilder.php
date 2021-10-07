@@ -9,7 +9,6 @@ use Summa\Bundle\BadgeBundle\Compiler\DateConditionCompiler;
 use Summa\Bundle\BadgeBundle\Entity\Badge;
 use Summa\Bundle\BadgeBundle\Compiler\ProductAssignmentRuleCompiler;
 
-
 /**
  * Builder for relations between badge and products
  */

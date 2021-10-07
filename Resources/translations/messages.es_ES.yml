@@ -1,45 +1,83 @@
-summa_badge:
-  badges:
-    grid_title: 'Badges Grilla'
-    entity_label: 'Badge'
-    menu_config: 'CucaTab'
-    form.nombre.label: 'Nombre'
-
-oro:
-  product:
-    badges:
-      label: 'Badges'
 summa:
-  product:
-    badges:
-      label: 'Badges'
-  badges:
-    additional_notice:
-      label: 'Importación de badges'
-    datagrids:
-      field:
-        id: 'ID'
-        nombre: 'Nombre'
-        posicion: 'Posición'
-        imagen: 'Imagen'
-    menu_config:
-      item:
-        label: 'Badges'
-    form:
-      file_label: 'CSV Importación Badges'
-
-  badges_import:
-    menu_config:
-      item:
-        label: 'Importación Badges'
   badge:
+    entity_plural_label: Cucardas
+    entity_label: Cucarda
     id:
-      label: 'ID'
-    nombre:
-      label: 'Nombre'
-    posicion:
-      label: 'Posición'
-    imagen:
-      label: 'Imagen'
-    entity_label: 'Badge'
-    entity_plural_label: 'Badges'
+      label: ID
+    name:
+      label: Nombre
+      description: "Identificador de la cucarda"
+    position:
+      label: Posicion
+      description: "Poscion donde se mostrara"
+    style:
+      label: 'Estilo'
+      description: 'Permite Agregar estilo a esta cucarda'
+    image:
+      label: Imagen
+      description: "Imagen de la cucarda resolucion recomendad (103px x 155px)"
+    active:
+      label: 'Activa'
+      description: 'Desactive para que la cucarda ya no se muestre'
+    schedules:
+      label: 'Programación'
+      description: 'Programar la activación de la cucarda'
+    apply_for_n_days:
+      label: 'Aplicar por "n" dias'
+      description: 'Cantidad en dias en la que se va a aplicar la cucarda a partir de la fecha de creación'
+      view_label: 'Aplica los primeros'
+      days: 'dias'
+    product_assignment_rule:
+      label: 'Regla'
+
+    sections:
+      general: 'General'
+      product_assignment_rule: 'Reglas de asignación'
+      schedules: 'Programación'
+      products: 'Productos'
+
+    controller:
+      saved.message: Cucarda ha sido guardada
+
+  badge_schedule:
+    active.label: Activado
+    activity.label: Estado
+    was_activated: Se activó el% date%.
+    was_deactivated: Se desactivó el% date%.
+    will_be_acitivated: Se activará el% date%.
+    will_be_deacitivated: Se desactivará el% date%.
+    active_now: Está activo ahora.
+    not_active_now: No está activo ahora.
+    active: Activo
+    inactive: Inactivo
+    disabled: Desabilitado
+
+  import:
+    label: Import Product Badge
+    notice: 'This is import for related Badge-Product, this is not is Import Badge Entity.'
+    sku:
+      column_missing: 'SKU column is missing'
+      product_by_sku:
+        not_found: 'Product by Sku not Found'
+    badge:
+      column_missing: 'Related SKUs column is missing'
+      empty_sku: 'Related SKUs collection contains empty SKU. Item data: %data%'
+      self_relation: 'It is not possible to create relations from product to itself.'
+      max_relations: 'It is not possible to add more items, because of the limit of relations.'
+
+  listener:
+    product_assignment_rule:
+      message: Product assignment have been successfully scheduled.
+
+  system_configuration:
+    fields:
+      summa_product_badge:
+        disable_oro_default_badge:
+          label: 'Disable default New badge'
+          tooltip: 'Use this option for disable/enable default new badge.'
+
+  importexport:
+    import:
+      summa_product_badge:
+        add_or_replace: Add or Replace
+        reset: Reset

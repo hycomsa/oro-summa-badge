@@ -98,18 +98,6 @@ class Badge extends ExtendBadge implements ScheduleIntervalsAwareInterface
      */
     protected $containSchedule = false;
 
-//    /**
-//     * @var ArrayCollection|Product[]
-//     *
-//     * @ORM\OneToMany(
-//     *      targetEntity="Summa\Bundle\BadgeBundle\Entity\BadgeToProduct",
-//     *      mappedBy="product",
-//     *      cascade={"all"},
-//     *      orphanRemoval=true
-//     * )
-//     */
-//    protected $products;
-
     /**
      * @var \DateTime
      *
@@ -150,8 +138,6 @@ class Badge extends ExtendBadge implements ScheduleIntervalsAwareInterface
     public function __construct()
     {
         $this->schedules    = new ArrayCollection();
-//        $this->products     = new ArrayCollection();
-
         parent::__construct();
     }
 
@@ -369,14 +355,6 @@ class Badge extends ExtendBadge implements ScheduleIntervalsAwareInterface
         return $this;
     }
 
-//    /**
-//     * @return ArrayCollection|Product[]
-//     */
-//    public function getProducts()
-//    {
-//        return $this->products;
-//    }
-
     /**
      * @return int
      */
@@ -394,7 +372,6 @@ class Badge extends ExtendBadge implements ScheduleIntervalsAwareInterface
         $this->applyForNDays = $applyForNDays;
         return $this;
     }
-
 
     /**
      * Pre persist event handler.
