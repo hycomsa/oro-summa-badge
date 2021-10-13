@@ -1,8 +1,5 @@
 layout:
   actions:
-#    - '@setBlockTheme':
-#        themes: 'product_row.html.twig'
-
     # Remove OOB Badges
     - '@remove':
         id: new_arrival_product_sticker_new

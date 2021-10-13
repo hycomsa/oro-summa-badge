@@ -25,8 +25,6 @@ class SummaBadgeExtension extends Extension
         $loader->load('controllers.yml');
         $loader->load('form_types.yml');
         $loader->load('block_types.yml');
-        $loader->load('importexport.yml');
-
         $container->prependExtensionConfig($this->getAlias(), array_intersect_key($config, array_flip(['settings'])));
     }
 

@@ -1,0 +1,14 @@
+search:
+    Summa\Bundle\BadgeBundle\Entity\Badge:
+        alias:                          summa_badge
+        title_fields:                   [defaultName]
+        route:
+            name:                       summa_badge_view
+            parameters:
+                id:                     id
+        search_template:                SummaBadgeBundle:Badge:searchResult.html.twig
+        fields:
+            -
+                name:                   name
+                target_type:            text
+                target_fields:          [name]

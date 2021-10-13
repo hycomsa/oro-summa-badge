@@ -1,0 +1,29 @@
+{#
+    Available variables:
+    * entity       - product entity Oro\Bundle\ProductBundle\Entity\Product or null
+    * indexer_item - indexer item Oro\Bundle\SearchBundle\Query\Result\Item
+#}
+{% extends 'OroSearchBundle:Search:searchResultItem.html.twig' %}
+
+{% set showImage = false %}
+
+{% set recordUrl = indexer_item.recordUrl %}
+
+{% set titles = [] %}
+
+{% if entity.postion is defined %}
+    {% set titles = titles|merge([entity.postion]) %}
+{% endif %}
+
+{% if entity.name is defined %}
+    {% set titles = titles|merge([entity.name]) %}
+{% endif %}
+
+{% set title = titles|join(' - ') %}
+
+{% set entityType = 'summa.badge.entity_label'|trans %}
+
+{% set entityInfo = [
+    {'title': 'oro.ui.created_at'|trans, 'value': entity.createdAt ? entity.createdAt|oro_format_datetime : 'N/A'|trans},
+    {'title': 'oro.ui.updated_at'|trans, 'value': entity.updatedAt ? entity.updatedAt|oro_format_datetime : 'N/A'|trans},
+] %}

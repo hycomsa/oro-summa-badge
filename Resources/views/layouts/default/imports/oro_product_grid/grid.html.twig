@@ -6,6 +6,5 @@
     %}
         {% set badges = product.badges %}
     {% endif %}
-    {{ dump(product) }}
     {{ block_widget(block, {'badges' : badges|default({})}) }}
 {% endblock %}
