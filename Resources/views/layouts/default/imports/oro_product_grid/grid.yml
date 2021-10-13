@@ -3,11 +3,8 @@ layout:
         - '@setBlockTheme':
               themes: 'grid.html.twig'
 
-        #
-        - '@setOption':
-            id: products
-            optionName: items_data.badges
-            optionValue: '=data["summa_product_badges_provider"].getBadgesForProducts(data["products"])'
+        - '@remove':
+            id: product_datagrid_row_product_sticker_new
 
         - '@add':
             id: product_datagrid_row_product_badge

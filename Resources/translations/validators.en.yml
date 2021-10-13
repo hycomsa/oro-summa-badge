@@ -1,4 +1,0 @@
-summa:
-  badges:
-    form:
-      file_error: 'Error: Please upload a valid csv file.'

@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Oro\Bundle\AttachmentBundle\Form\Type\ImageType;
+use Symfony\Component\Validator\Constraints as Assert;
 use Summa\Bundle\BadgeBundle\Entity\Badge;
 
 class BadgeType extends AbstractType
@@ -47,7 +48,8 @@ class BadgeType extends AbstractType
             ->add('name',TextType::class,
                 [
                     'required'      => true,
-                    'label'         => 'summa.badge.name.label'
+                    'label'         => 'summa.badge.name.label',
+                    'constraints' => [new Assert\NotNull()]
                 ]
             )
             ->add(
@@ -57,14 +59,16 @@ class BadgeType extends AbstractType
                     'label'     => 'summa.badge.position.label',
                     'enum_code' => 'summa_badge_position',
                     'required'  => true,
-                    'configs'   => ['allowClear' => false]
+                    'configs'   => ['allowClear' => false],
+                    'constraints' => [new Assert\NotNull()]
                 ]
             )
             ->add(
                 'active',
                 CheckboxType::class,
                 [
-                    'label' => 'summa.badge.active.label'
+                    'label' => 'summa.badge.active.label',
+                    'required'  => false,
                 ]
             )
             ->add(
