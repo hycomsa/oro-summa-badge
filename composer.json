@@ -15,13 +15,13 @@
     "exclude-from-classmap": ["/Tests/"]
   },
   "require": {
-    "oro/commerce": "4.1.*"
+    "oro/commerce": "5.0.*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "extra": {
     "branch-alias": {
-      "dev-master": "4.1-dev"
+      "dev-master": "master"
     }
   }
 }
